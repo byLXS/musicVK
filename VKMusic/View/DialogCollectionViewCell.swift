@@ -26,7 +26,7 @@ class DialogCollectionViewCell: UICollectionViewCell {
     
     func setup(_ model: Dialog) {
         selectedCellImageView.isHidden = true
-        self.dialogImageView?.image = UIImage(data: model.photo as Data)
+        self.dialogImageView?.image = UIImage(data: model.photo! as Data)
         self.dialogLabel!.text = model.firstName
     }
 }

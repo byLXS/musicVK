@@ -14,10 +14,10 @@ struct CodableDialog: Codable {
 
 struct Response: Codable {
     let count: Int
-    let items: [Item]
-    let unreadCount: Int
-    let profiles: [Profile]
-    let groups: [Group]
+    let items: [Item]?
+    let unreadCount: Int?
+    let profiles: [Profile]?
+    let groups: [Group]?
     
     enum CodingKeys: String, CodingKey {
         case count, items
@@ -411,18 +411,10 @@ struct Profile: Codable {
     }
 }
 
+
 // MARK: Encode/decode helpers
 
-class JSONNull: Codable, Hashable {
-    
-    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
-        return true
-    }
-    
-    public var hashValue: Int {
-        return 0
-    }
-    
+class JSONNull: Codable {
     public init() {}
     
     public required init(from decoder: Decoder) throws {
@@ -651,3 +643,4 @@ class JSONAny: Codable {
         }
     }
 }
+

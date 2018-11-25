@@ -27,7 +27,7 @@ class MusicPlayerViewController: UIViewController {
     //MARK: Property
     var player: AVAudioPlayer?
     var timer = Timer()
-    var fetchResultC = CoreDataManager.shared.initFetchResultController(enityNmae: "Music", sortKey: "artist")
+    var fetchResultC = CoreDataManager.shared.initFetchResultController(enityNmae: "Music", sortKey: "date")
     var currentIndexMusic = 0
     var music: [Music]?
     
@@ -36,7 +36,7 @@ class MusicPlayerViewController: UIViewController {
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let fetchRequest = NSFetchRequest<Music>(entityName: "Music")
         do {
             let result = try CoreDataManager.shared.persistentContainer.viewContext.fetch(fetchRequest)
@@ -81,16 +81,15 @@ class MusicPlayerViewController: UIViewController {
         if minutes > 0 {
             seconds = seconds - 60 * minutes
         }
-        DispatchQueue.main.async {
-            self.minTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
-            
-        }
+        self.minTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
         
     }
     
     //MARK: Action
     @IBAction func presentDialogAction(_ sender: UIButton) {
         let dialogCV = storyboard?.instantiateViewController(withIdentifier: "dialogCV") as! DialogsCollectionViewController
+        
+        dialogCV.music = music![currentIndexMusic]
         
         self.addChild(dialogCV)
         self.view.addSubview(dialogCV.view)
@@ -110,7 +109,7 @@ class MusicPlayerViewController: UIViewController {
         
     }
     
-   
+    
     
     @IBAction func playMusicAction(_ sender: UIButton) {
         if player == nil {
@@ -145,19 +144,19 @@ class MusicPlayerViewController: UIViewController {
                 player?.stop()
             }
             if music != nil {
-            if (music?.count)!-1 != currentIndexMusic {
-                currentIndexMusic += 1
-                reloadView()
-                VKApi.shared.downloadMusic(url: music![currentIndexMusic].url) { (urlMusic) in
-                    self.playMusic(url: urlMusic)
+                if (music?.count)!-1 != currentIndexMusic {
+                    currentIndexMusic += 1
+                    reloadView()
+                    VKApi.shared.downloadMusic(url: music![currentIndexMusic].url) { (urlMusic) in
+                        self.playMusic(url: urlMusic)
+                    }
+                } else {
+                    currentIndexMusic = 0
+                    reloadView()
+                    VKApi.shared.downloadMusic(url: music![currentIndexMusic].url) { (urlMusic) in
+                        self.playMusic(url: urlMusic)
+                    }
                 }
-            } else {
-                currentIndexMusic = 0
-                reloadView()
-                VKApi.shared.downloadMusic(url: music![currentIndexMusic].url) { (urlMusic) in
-                    self.playMusic(url: urlMusic)
-                }
-            }
             }
             
         }
@@ -181,9 +180,7 @@ class MusicPlayerViewController: UIViewController {
         if minutes > 0 {
             seconds = seconds - 60 * minutes
         }
-        DispatchQueue.main.async {
-            self.minTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
-        }
+        self.minTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
     }
     
     
@@ -196,7 +193,7 @@ class MusicPlayerViewController: UIViewController {
                 }
             }
             player?.currentTime = TimeInterval(sender.value)
-           
+            
             
         }
     }
@@ -207,7 +204,7 @@ class MusicPlayerViewController: UIViewController {
     //MARK: Methods
     
     /// Получение и запись информации о музыке
-     func getMusicInfo() {
+    func getMusicInfo() {
         // Получение информации
         VKApi.shared.getMusic { (music) in
             //Запись
@@ -248,7 +245,7 @@ class MusicPlayerViewController: UIViewController {
             }
             
             let session = AVAudioSession.sharedInstance()
-                        
+            
             do {
                 try session.setCategory(.playback, mode: .moviePlayback, options: .defaultToSpeaker)
             } catch {
@@ -260,7 +257,7 @@ class MusicPlayerViewController: UIViewController {
         }
     }
     
-     func runTimer() {
+    func runTimer() {
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
     }
     

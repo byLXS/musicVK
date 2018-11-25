@@ -12,7 +12,13 @@ import CoreData
 
 
 class Dialog: NSManagedObject {
-    convenience init() {
+    convenience init(firstName: String, lastName: String?, id: Int64, photo: NSData?, randomId: Int64) {
         self.init(entity: CoreDataManager.shared.entityForName(entityName: "Dialog"), insertInto: CoreDataManager.shared.persistentContainer.viewContext)
+        
+        self.firstName = firstName
+        self.lastName = lastName
+        self.id = id
+        self.photo = photo
+        self.randomId = randomId
     }
 }

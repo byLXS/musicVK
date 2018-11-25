@@ -46,11 +46,10 @@ class VKApi  {
 //            }.send()
         
         guard let urlStr = URL(string: urlString) else { return }
-
-        let request = session.dataTask(with: urlStr) { (data, response, error) in
+        
+        let request = self.session.dataTask(with: urlStr) { (data, response, error) in
             print(Thread.current)
             if data != nil {
-
                 let array = self.parsingMusicData(data: data!)
                 if array != nil {
                     DispatchQueue.main.async {
@@ -60,6 +59,7 @@ class VKApi  {
             }
         }
         request.resume()
+        
     }
     
     
@@ -82,30 +82,32 @@ class VKApi  {
     }
     
     
-    func sendMessages(id: [String],message: String) {
+    func sendMessages(ids: [Int], randomId: String, message: String?, attachment: String) {
         guard let accessToken = token else { return }
         
-        for i in id {
+        for i in ids {
+
+        
+        let urlString = "https://api.vk.com/method/messages.send?user_ids=\(i)&random_id=\(randomId)&message=\(message ?? "")&attachment=\(attachment)&v=5.87&access_token=\(accessToken)"
+        
+        print(urlString)
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        session.dataTask(with: url) { (data, response, error) in
+            guard let dataR = data else { return }
             
-            let urlString = "https://api.vk.com/method/messages.send?user_ids=\(i)&message=\(message)&v=5.87&access_token=\(accessToken)"
+            do {
+                let json = try JSONSerialization.jsonObject(with: dataR, options: [])
+                print(json)
+            } catch {
+                print(error)
+            }
             
-            guard let url = URL(string: urlString) else { return }
             
-            let request = session.dataTask(with: url) { (data, response, error) in
-                guard let dataR = data else { return }
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: dataR, options: [])
-                    print(json)
-                } catch {
-                    print(error)
-                }
-                
-                
-                }.resume()
+            }.resume()
+        
         }
-        
-        
     }
     
     
@@ -124,9 +126,10 @@ class VKApi  {
         for i in response.items {
             for attachments in i.attachments {
                 if let audio = attachments.audio {
-                    let items = Music(artist: audio.artist, title: audio.title, url: audio.url, duration: Int64(audio.duration), id: Int64(audio.id))
+                    let items = Music(artist: audio.artist, title: audio.title, url: audio.url, duration: Int64(audio.duration), id: Int64(audio.id), date: Int64(i.date), ownerId: String(audio.ownerID))
                     array.append(items)
                     print(Thread.current)
+                    
                     CoreDataManager.shared.saveContext()
                     
                     
@@ -146,47 +149,29 @@ class VKApi  {
             return }
         let response = json.response
         let items = response.items
-        breakId:for i in items {
+        breakId:for i in items! {
             let id = i.conversation.peer.localID
             if let c = i.conversation.chatSettings {
-                let itemDialog = Dialog()
-                itemDialog.firstName = c.title
-                itemDialog.lastName = nil
-                itemDialog.id = Int64(id)
-                do {
-                    itemDialog.photo = try NSData(contentsOf: URL(string: c.photo.photo100)!)
-                } catch {
-                    print(error)
-                }                
+                var data: NSData?
+                data = NSData(contentsOf: URL(string: c.photo.photo100)!)
+                _ = Dialog(firstName: c.title, lastName: nil, id: Int64(id), photo: data, randomId: Int64(i.lastMessage.randomID))
                 CoreDataManager.shared.saveContext()
                 continue
             }
-            for p in response.profiles {
+            for p in response.profiles! {
                 if id == p.id {
-                    let itemDialog = Dialog()
-                    itemDialog.firstName =  p.firstName
-                    itemDialog.lastName =  p.lastName
-                    itemDialog.id = Int64(id)
-                    do {
-                       itemDialog.photo =  try NSData(contentsOf: URL(string: p.photo100)!)
-                    } catch {
-                        print(error)
-                    }
+                    var data: NSData?
+                    data = NSData(contentsOf: URL(string: p.photo100)!)
+                    _ = Dialog(firstName: p.firstName, lastName: p.lastName, id: Int64(id), photo: data, randomId: Int64(i.lastMessage.randomID))
                     CoreDataManager.shared.saveContext()
                     continue breakId
                 }
             }
-            for g in response.groups {
+            for g in response.groups! {
                 if id == g.id {
-                    let itemDialog = Dialog()
-                    itemDialog.firstName = g.name
-                    itemDialog.lastName = nil
-                    itemDialog.id = Int64(id)
-                    do {
-                        itemDialog.photo = try NSData(contentsOf: URL(string: g.photo100)!)
-                    } catch {
-                        print(error)
-                    }
+                    var data: NSData?
+                    data = NSData(contentsOf: URL(string: g.photo100)!)
+                    _ = Dialog(firstName: g.name, lastName: nil, id: Int64(-id), photo: data, randomId: Int64(i.lastMessage.randomID))
                     CoreDataManager.shared.saveContext()
                     break
                 } else {
@@ -202,7 +187,7 @@ class VKApi  {
     func downloadMusic(url: String,completion: @escaping (URL) -> Void) {
         if let url = URL(string: url) {
             downloadTask?.cancel()
-            downloadTask = session.downloadTask(with: url, completionHandler: { [weak self] (urlMusic, response, error) in
+            downloadTask = session.downloadTask(with: url, completionHandler: { (urlMusic, response, error) in
                 guard error == nil else {return }
                 completion(urlMusic!)
             })

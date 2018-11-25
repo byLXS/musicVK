@@ -5,16 +5,19 @@
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="randomId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Music" representedClassName=".Music" syncable="YES">
         <attribute name="artist" attributeType="String" syncable="YES"/>
+        <attribute name="date" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="duration" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ownerId" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <attribute name="url" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Dialog" positionX="-45" positionY="36" width="128" height="105"/>
-        <element name="Music" positionX="-45" positionY="0" width="128" height="120"/>
+        <element name="Dialog" positionX="-45" positionY="36" width="128" height="120"/>
+        <element name="Music" positionX="-45" positionY="0" width="128" height="150"/>
     </elements>
 </model>

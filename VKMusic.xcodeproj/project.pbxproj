@@ -11,7 +11,6 @@
 		E10C1D1F2196295E00F653A6 /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C1D1E2196295E00F653A6 /* MusicPlayerViewController.swift */; };
 		E10C1D232196382600F653A6 /* CodableMessageHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C1D222196382600F653A6 /* CodableMessageHistory.swift */; };
 		E11D03252196FC0F0011A7FB /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D03242196FC0F0011A7FB /* MusicTableViewCell.swift */; };
-		E11D0330219754C40011A7FB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D032F219754C40011A7FB /* Player.swift */; };
 		E13A34C321949D52000AE8F2 /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A34C221949D52000AE8F2 /* VKApi.swift */; };
 		E13AC99B21A060D000C2AF53 /* SendMessageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13AC99A21A060D000C2AF53 /* SendMessageContainerView.swift */; };
 		E164A707219C986F007BED9B /* DialogsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164A706219C986F007BED9B /* DialogsCollectionViewController.swift */; };
@@ -41,7 +40,6 @@
 		E10C1D1E2196295E00F653A6 /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewController.swift; sourceTree = "<group>"; };
 		E10C1D222196382600F653A6 /* CodableMessageHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableMessageHistory.swift; sourceTree = "<group>"; };
 		E11D03242196FC0F0011A7FB /* MusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTableViewCell.swift; sourceTree = "<group>"; };
-		E11D032F219754C40011A7FB /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E13A34C221949D52000AE8F2 /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
 		E13AC99A21A060D000C2AF53 /* SendMessageContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageContainerView.swift; sourceTree = "<group>"; };
 		E164A706219C986F007BED9B /* DialogsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				E1B14195219CD12A009ECFEE /* Dialog.swift */,
 				E13A34C221949D52000AE8F2 /* VKApi.swift */,
 				E1C1989E219C5B24007D1CD9 /* CodableDialog.swift */,
-				E11D032F219754C40011A7FB /* Player.swift */,
 				E10C1D222196382600F653A6 /* CodableMessageHistory.swift */,
 				E1E616B6219A1BB100AFA15B /* CoreDataManager.swift */,
 			);
@@ -309,7 +306,6 @@
 				E1EB20BB219CBABC00A625B8 /* DialogCollectionViewCell.swift in Sources */,
 				E1B14197219CD12A009ECFEE /* Dialog.swift in Sources */,
 				E13AC99B21A060D000C2AF53 /* SendMessageContainerView.swift in Sources */,
-				E11D0330219754C40011A7FB /* Player.swift in Sources */,
 				E11D03252196FC0F0011A7FB /* MusicTableViewCell.swift in Sources */,
 				E1B14198219CD12A009ECFEE /* Dialog+CoreDataProperties.swift in Sources */,
 				E1E616B7219A1BB100AFA15B /* CoreDataManager.swift in Sources */,

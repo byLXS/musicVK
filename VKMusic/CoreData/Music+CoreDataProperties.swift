@@ -22,5 +22,8 @@ extension Music {
     @NSManaged public var id: Int64
     @NSManaged public var duration: Int64
     @NSManaged public var url: String
+    @NSManaged public var date: Int64
+    @NSManaged public var ownerId: String
+
 
 }

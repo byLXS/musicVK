@@ -20,7 +20,8 @@ extension Dialog {
     @NSManaged public var lastName: String?
     @NSManaged public var id: Int64
     @NSManaged public var firstName: String
-    @NSManaged public var photo: NSData
+    @NSManaged public var photo: NSData?
+    @NSManaged public var randomId: Int64
     
 
 }

@@ -71,7 +71,7 @@ class CoreDataManager {
     
     func initFetchResultController(enityNmae: String,sortKey: String) -> NSFetchedResultsController<NSFetchRequestResult> {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: enityNmae)
-        let sort = NSSortDescriptor(key: sortKey, ascending: true)
+        let sort = NSSortDescriptor(key: sortKey, ascending: false)
         request.sortDescriptors = [sort]
         let controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataManager.shared.persistentContainer.newBackgroundContext(), sectionNameKeyPath: nil, cacheName: nil)
         return controller

@@ -12,7 +12,7 @@ import CoreData
 
 
 class Music: NSManagedObject {
-    convenience init(artist: String, title: String, url: String, duration: Int64, id: Int64) {
+    convenience init(artist: String, title: String, url: String, duration: Int64, id: Int64,date: Int64, ownerId: String) {
         self.init(entity: CoreDataManager.shared.entityForName(entityName: "Music"), insertInto: CoreDataManager.shared.persistentContainer.viewContext)
         
         self.artist = artist
@@ -20,6 +20,9 @@ class Music: NSManagedObject {
         self.url = url
         self.duration = duration
         self.id = id
+        self.date = date
+        self.ownerId = ownerId
+        
     }
     
     

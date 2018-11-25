@@ -16,7 +16,10 @@ class DialogsCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let reuseIdentifier = "cellDialog"
-    var users = [Int]()
+    var music = Music()
+    var dialogs: [Dialog]?
+    
+    var ids = [Int]()
     
     var fetchResultC = CoreDataManager.shared.initFetchResultController(enityNmae: "Dialog", sortKey: "firstName")
     override func viewDidLoad() {
@@ -31,6 +34,7 @@ class DialogsCollectionViewController: UIViewController {
                 }
             } else {
                 try fetchResultC.performFetch()
+                dialogs = fetchResultC.fetchedObjects as? [Dialog]
             }
             
         } catch {
@@ -101,9 +105,13 @@ class DialogsCollectionViewController: UIViewController {
     }
     
     @objc func sendMessage() {
-        let id = ["146255625","146255625"]
-        guard let message = myView.inputMessage.text else { return }
-        VKApi.shared.sendMessages(id: id, message: message)
+        guard let text = myView.inputMessage.text else { return }
+        VKApi.shared.sendMessages(ids: ids, randomId: String(music.date+1000), message: text, attachment: "audio\(music.ownerId)_\(music.id)")
+        UIView.animate(withDuration: 0.8) {
+            self.view.frame = CGRect(x: 0, y:  UIScreen.main.bounds.height - 150 + 200, width: self.view.frame.width, height: self.view.frame.height)
+            self.removeFromParent()
+            self.view.removeFromSuperview()
+        }
         myView.inputMessage.text = nil
     }
     
@@ -123,9 +131,9 @@ extension DialogsCollectionViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? DialogCollectionViewCell {
-            let item = fetchResultC.object(at: indexPath) as? Dialog
+            let item = dialogs![indexPath.row]
             if item != nil {
-                cell.setup(item!)
+                cell.setup(item)
             } else {
                 return UICollectionViewCell()
             }
@@ -144,13 +152,14 @@ extension DialogsCollectionViewController: UICollectionViewDataSource {
 extension DialogsCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? DialogCollectionViewCell
+        let item = dialogs?[indexPath.row]
         if myView.isHidden {
             myView.isHidden = false
             UIView.animate(withDuration: 0.2) {
                 cell?.selectedCellImageView.isHidden = false
                 cell?.dialogImageView.layer.borderWidth = 4.0
                 cell?.dialogImageView.layer.borderColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
-                self.users.append(indexPath.row)
+                self.ids.append(Int(self.dialogs![indexPath.row].id))
                 self.myView.frame.origin.y -= 200
                 
             }
@@ -159,29 +168,27 @@ extension DialogsCollectionViewController: UICollectionViewDelegate {
                 UIView.animate(withDuration: 0.5) {
                     cell?.selectedCellImageView.isHidden = true
                     cell?.dialogImageView.layer.borderWidth = 0.0
-                    if let index = self.users.index(of: indexPath.row) {
-                        self.users.remove(at: index)
-                        if self.users.isEmpty {
+                    if let index = self.ids.index(of: Int(self.dialogs![indexPath.row].id)) {
+                        self.ids.remove(at: index)
+                        if self.dialogs!.isEmpty {
                             self.myView.frame.origin.y += 200
                             self.myView.isHidden = true
                         }
                     }
-                    
-                    
                 }
             } else {
                 UIView.animate(withDuration: 0.2) {
                     cell?.selectedCellImageView.isHidden = false
                     cell?.dialogImageView.layer.borderWidth = 4.0
                     cell?.dialogImageView.layer.borderColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
-                    self.users.append(indexPath.row)
+                    self.ids.append(Int(self.dialogs![indexPath.row].id))
                 }
             }
             
         }
-        print(users)
-        
+        print(ids)
     }
+    
 }
 
 //MARK: UIGestureRecognizerDelegate
