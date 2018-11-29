@@ -31,8 +31,8 @@ class ViewController: UIViewController {
                     let token = UserDefaults.standard.value(forKey: "token")
                     let id = UserDefaults.standard.value(forKey: "id")
                     
-                    VKApi.shared.token = token as? String
-                    VKApi.shared.id = id as? String
+                    NetworkHelper.shared.token = token as? String
+                    NetworkHelper.shared.id = id as? String
                 }
                 
                 DispatchQueue.main.async {

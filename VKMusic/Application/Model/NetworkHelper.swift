@@ -2,7 +2,7 @@
 //  VKApi.swift
 //  VKMusic
 //
-//  Created by Robert on 08.11.2018.
+//  Created by Robert on 10.11.2018.
 //  Copyright © 2018 Robert. All rights reserved.
 //
 
@@ -10,16 +10,17 @@
 import Foundation
 import SwiftyVK
 
-class VKApi  {
-    static let shared = VKApi()
+class NetworkHelper  {
     
+    static let shared = NetworkHelper()
     
     var session = URLSession(configuration: .default)
     var downloadTask: URLSessionDownloadTask?
     
     var id: String?
     var token: String?
-    var isDownloading = false
+    
+    private init() {}
     
     
     //MARK: API Method
@@ -29,21 +30,6 @@ class VKApi  {
         guard let userID = id else { return }
 
         let urlString = "https://api.vk.com/method/messages.getHistory?user_id=\(userID),count=100&v=5.87&access_token=\(accessToken)"
-        
-//        VK.API.Messages.getHistory([.count : "100", .userId: userID])
-//            .onSuccess { (data) in
-//                let array = self.parsingMusicData(data: data)
-//                if array != nil {
-//                    DispatchQueue.main.async {
-//                        completion(array!)
-//                    }
-//                }
-//            }
-//            .onError {
-//                print("SwiftyVK: Messages.getHistory failed with \n \($0)")
-//
-//
-//            }.send()
         
         guard let urlStr = URL(string: urlString) else { return }
         

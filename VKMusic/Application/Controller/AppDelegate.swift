@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vkDelegate = VKDelegateExample()
         self.window = UIWindow(frame: UIScreen.main.bounds)
         if let token = UserDefaults.standard.value(forKey: "token"),let id = UserDefaults.standard.value(forKey: "id") {
-            VKApi.shared.token = token as? String
-            VKApi.shared.id = id as? String
+            NetworkHelper.shared.token = token as? String
+            NetworkHelper.shared.id = id as? String
             let musicVC = storyboard.instantiateViewController(withIdentifier: "MusicVC")
             self.window?.rootViewController = musicVC
             self.window?.makeKeyAndVisible()

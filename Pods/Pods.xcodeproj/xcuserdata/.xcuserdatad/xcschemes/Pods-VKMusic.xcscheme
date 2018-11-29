@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2C2CB474D22AD0B47B3F10E4768C8718"
+               BlueprintIdentifier = "51D6CA38DED2A5FE3319D92EC3AF18D2"
                BlueprintName = "Pods-VKMusic"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "Pods-VKMusic.framework">

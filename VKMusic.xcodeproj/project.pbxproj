@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		69D9EA3F792CCE05C5A9D3CE /* Pods_VKMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA6B5671DF926FD5FC36810 /* Pods_VKMusic.framework */; };
 		E10C1D1F2196295E00F653A6 /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C1D1E2196295E00F653A6 /* MusicPlayerViewController.swift */; };
 		E10C1D232196382600F653A6 /* CodableMessageHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C1D222196382600F653A6 /* CodableMessageHistory.swift */; };
 		E11D03252196FC0F0011A7FB /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D03242196FC0F0011A7FB /* MusicTableViewCell.swift */; };
-		E13A34C321949D52000AE8F2 /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A34C221949D52000AE8F2 /* VKApi.swift */; };
+		E13A34C321949D52000AE8F2 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A34C221949D52000AE8F2 /* NetworkHelper.swift */; };
 		E13AC99B21A060D000C2AF53 /* SendMessageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13AC99A21A060D000C2AF53 /* SendMessageContainerView.swift */; };
-		E164A707219C986F007BED9B /* DialogsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164A706219C986F007BED9B /* DialogsCollectionViewController.swift */; };
+		E164A707219C986F007BED9B /* DialogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164A706219C986F007BED9B /* DialogCollectionViewController.swift */; };
+		E170918B21AC3A4A00F5E436 /* Pods_VKMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA6B5671DF926FD5FC36810 /* Pods_VKMusic.framework */; };
 		E19216D521983E140079A9A5 /* CustomMusicSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19216D421983E140079A9A5 /* CustomMusicSlider.swift */; };
 		E1B14197219CD12A009ECFEE /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B14195219CD12A009ECFEE /* Dialog.swift */; };
 		E1B14198219CD12A009ECFEE /* Dialog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B14196219CD12A009ECFEE /* Dialog+CoreDataProperties.swift */; };
@@ -28,21 +28,20 @@
 		E1F2B2B12188DD1900439855 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2B2AF2188DD1900439855 /* Main.storyboard */; };
 		E1F2B2B32188DD1A00439855 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F2B2B22188DD1A00439855 /* Assets.xcassets */; };
 		E1F2B2B62188DD1A00439855 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2B2B42188DD1A00439855 /* LaunchScreen.storyboard */; };
+		E1F7219C21AC8B6F00554854 /* PlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F7219B21AC8B6F00554854 /* PlayerHelper.swift */; };
 		E1FBFF5821A45F05007B3E92 /* VKDelegateExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBFF5721A45F05007B3E92 /* VKDelegateExample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		26268DC83E5BB1C833BEFCDC /* Pods-VKMusic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKMusic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VKMusic/Pods-VKMusic.debug.xcconfig"; sourceTree = "<group>"; };
-		54DFDDB41EEAD74F2622E0A7 /* Pods_LessionUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LessionUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA6B5671DF926FD5FC36810 /* Pods_VKMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4939E2712C2534529786E1 /* Pods-VKMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKMusic.release.xcconfig"; path = "Pods/Target Support Files/Pods-VKMusic/Pods-VKMusic.release.xcconfig"; sourceTree = "<group>"; };
-		D796C53E0C9E459466893B20 /* Pods-LessionUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LessionUIKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LessionUIKit/Pods-LessionUIKit.debug.xcconfig"; sourceTree = "<group>"; };
 		E10C1D1E2196295E00F653A6 /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewController.swift; sourceTree = "<group>"; };
 		E10C1D222196382600F653A6 /* CodableMessageHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableMessageHistory.swift; sourceTree = "<group>"; };
 		E11D03242196FC0F0011A7FB /* MusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTableViewCell.swift; sourceTree = "<group>"; };
-		E13A34C221949D52000AE8F2 /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
+		E13A34C221949D52000AE8F2 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		E13AC99A21A060D000C2AF53 /* SendMessageContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageContainerView.swift; sourceTree = "<group>"; };
-		E164A706219C986F007BED9B /* DialogsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsCollectionViewController.swift; sourceTree = "<group>"; };
+		E164A706219C986F007BED9B /* DialogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewController.swift; sourceTree = "<group>"; };
 		E19216D421983E140079A9A5 /* CustomMusicSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMusicSlider.swift; sourceTree = "<group>"; };
 		E1B14195219CD12A009ECFEE /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		E1B14196219CD12A009ECFEE /* Dialog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dialog+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -59,8 +58,8 @@
 		E1F2B2B22188DD1A00439855 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1F2B2B52188DD1A00439855 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1F2B2B72188DD1A00439855 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1F7219B21AC8B6F00554854 /* PlayerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHelper.swift; sourceTree = "<group>"; };
 		E1FBFF5721A45F05007B3E92 /* VKDelegateExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDelegateExample.swift; sourceTree = "<group>"; };
-		E33AB7DB80D8762E7195340B /* Pods-LessionUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LessionUIKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-LessionUIKit/Pods-LessionUIKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69D9EA3F792CCE05C5A9D3CE /* Pods_VKMusic.framework in Frameworks */,
+				E170918B21AC3A4A00F5E436 /* Pods_VKMusic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,49 +77,131 @@
 		ABFA848D1384CB966FA11146 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D796C53E0C9E459466893B20 /* Pods-LessionUIKit.debug.xcconfig */,
-				E33AB7DB80D8762E7195340B /* Pods-LessionUIKit.release.xcconfig */,
 				26268DC83E5BB1C833BEFCDC /* Pods-VKMusic.debug.xcconfig */,
 				CE4939E2712C2534529786E1 /* Pods-VKMusic.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		E11D03262196FC170011A7FB /* Controller */ = {
+		E187BAB421AD8B2C001F8BC3 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				E164A706219C986F007BED9B /* DialogsCollectionViewController.swift */,
+				E187BAB721AD8B4F001F8BC3 /* Model */,
+				E187BAB621AD8B45001F8BC3 /* View */,
+				E187BAB521AD8B3D001F8BC3 /* Controller */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E187BAB521AD8B3D001F8BC3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2B2AB2188DD1900439855 /* AppDelegate.swift */,
+				E1FBFF5721A45F05007B3E92 /* VKDelegateExample.swift */,
 				E1F2B2AD2188DD1900439855 /* ViewController.swift */,
-				E10C1D1E2196295E00F653A6 /* MusicPlayerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		E11D03272196FC1E0011A7FB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				E1E616B1219A1AF000AFA15B /* Music.swift */,
-				E1B14195219CD12A009ECFEE /* Dialog.swift */,
-				E13A34C221949D52000AE8F2 /* VKApi.swift */,
-				E1C1989E219C5B24007D1CD9 /* CodableDialog.swift */,
-				E10C1D222196382600F653A6 /* CodableMessageHistory.swift */,
-				E1E616B6219A1BB100AFA15B /* CoreDataManager.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E11D03282196FC2A0011A7FB /* View */ = {
+		E187BAB621AD8B45001F8BC3 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E1F2B2B22188DD1A00439855 /* Assets.xcassets */,
 				E1F2B2AF2188DD1900439855 /* Main.storyboard */,
 				E1F2B2B42188DD1A00439855 /* LaunchScreen.storyboard */,
-				E19216D421983E140079A9A5 /* CustomMusicSlider.swift */,
-				E13AC99A21A060D000C2AF53 /* SendMessageContainerView.swift */,
-				E11D03242196FC0F0011A7FB /* MusicTableViewCell.swift */,
-				E1EB20BA219CBABC00A625B8 /* DialogCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E187BAB721AD8B4F001F8BC3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E1E616B6219A1BB100AFA15B /* CoreDataManager.swift */,
+				E13A34C221949D52000AE8F2 /* NetworkHelper.swift */,
+				E1F2B2B72188DD1A00439855 /* Info.plist */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E187BAB821AD8B65001F8BC3 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				E187BABC21AD8B93001F8BC3 /* Helper */,
+				E187BABB21AD8B89001F8BC3 /* Model */,
+				E187BABA21AD8B83001F8BC3 /* View */,
+				E187BAB921AD8B7C001F8BC3 /* Controller */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		E187BAB921AD8B7C001F8BC3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E10C1D1E2196295E00F653A6 /* MusicPlayerViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E187BABA21AD8B83001F8BC3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E11D03242196FC0F0011A7FB /* MusicTableViewCell.swift */,
+				E19216D421983E140079A9A5 /* CustomMusicSlider.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E187BABB21AD8B89001F8BC3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E1E616B1219A1AF000AFA15B /* Music.swift */,
+				E10C1D222196382600F653A6 /* CodableMessageHistory.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E187BABC21AD8B93001F8BC3 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				E1F7219B21AC8B6F00554854 /* PlayerHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		E187BABD21AD8BE9001F8BC3 /* Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				E187BAC021AD8C2C001F8BC3 /* Model */,
+				E187BABF21AD8C27001F8BC3 /* View */,
+				E187BABE21AD8C22001F8BC3 /* Controller */,
+			);
+			path = Dialog;
+			sourceTree = "<group>";
+		};
+		E187BABE21AD8C22001F8BC3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E164A706219C986F007BED9B /* DialogCollectionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E187BABF21AD8C27001F8BC3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1EB20BA219CBABC00A625B8 /* DialogCollectionViewCell.swift */,
+				E13AC99A21A060D000C2AF53 /* SendMessageContainerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E187BAC021AD8C2C001F8BC3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E1B14195219CD12A009ECFEE /* Dialog.swift */,
+				E1C1989E219C5B24007D1CD9 /* CodableDialog.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E1E616B5219A1B2700AFA15B /* CoreData */ = {
@@ -136,7 +217,6 @@
 		E1E616B9219B38BA00AFA15B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				54DFDDB41EEAD74F2622E0A7 /* Pods_LessionUIKit.framework */,
 				BDA6B5671DF926FD5FC36810 /* Pods_VKMusic.framework */,
 			);
 			name = Frameworks;
@@ -163,12 +243,9 @@
 		E1F2B2AA2188DD1900439855 /* VKMusic */ = {
 			isa = PBXGroup;
 			children = (
-				E1F2B2AB2188DD1900439855 /* AppDelegate.swift */,
-				E1FBFF5721A45F05007B3E92 /* VKDelegateExample.swift */,
-				E1F2B2B72188DD1A00439855 /* Info.plist */,
-				E11D03272196FC1E0011A7FB /* Model */,
-				E11D03282196FC2A0011A7FB /* View */,
-				E11D03262196FC170011A7FB /* Controller */,
+				E187BABD21AD8BE9001F8BC3 /* Dialog */,
+				E187BAB821AD8B65001F8BC3 /* Music */,
+				E187BAB421AD8B2C001F8BC3 /* Application */,
 				E1E616B5219A1B2700AFA15B /* CoreData */,
 			);
 			path = VKMusic;
@@ -276,10 +353,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VKMusic/Pods-VKMusic-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ESTMusicIndicator/ESTMusicIndicator.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyVK/SwiftyVK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTMusicIndicator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyVK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,9 +373,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1F7219C21AC8B6F00554854 /* PlayerHelper.swift in Sources */,
 				E19216D521983E140079A9A5 /* CustomMusicSlider.swift in Sources */,
 				E1E616AE219A17DE00AFA15B /* CoreDataModel.xcdatamodeld in Sources */,
-				E13A34C321949D52000AE8F2 /* VKApi.swift in Sources */,
+				E13A34C321949D52000AE8F2 /* NetworkHelper.swift in Sources */,
 				E1E616B4219A1AF000AFA15B /* Music+CoreDataProperties.swift in Sources */,
 				E10C1D1F2196295E00F653A6 /* MusicPlayerViewController.swift in Sources */,
 				E1FBFF5821A45F05007B3E92 /* VKDelegateExample.swift in Sources */,
@@ -310,7 +390,7 @@
 				E1B14198219CD12A009ECFEE /* Dialog+CoreDataProperties.swift in Sources */,
 				E1E616B7219A1BB100AFA15B /* CoreDataManager.swift in Sources */,
 				E1E616B3219A1AF000AFA15B /* Music.swift in Sources */,
-				E164A707219C986F007BED9B /* DialogsCollectionViewController.swift in Sources */,
+				E164A707219C986F007BED9B /* DialogCollectionViewController.swift in Sources */,
 				E1C1989F219C5B24007D1CD9 /* CodableDialog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,7 +540,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VY2ZB4KW5J;
-				INFOPLIST_FILE = "$(SRCROOT)/VKMusic/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/VKMusic/Application/Model/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -480,7 +560,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VY2ZB4KW5J;
-				INFOPLIST_FILE = "$(SRCROOT)/VKMusic/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/VKMusic/Application/Model/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

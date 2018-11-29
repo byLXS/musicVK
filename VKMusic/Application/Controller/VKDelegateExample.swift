@@ -42,8 +42,8 @@ final class VKDelegateExample: SwiftyVKDelegate {
         
         UserDefaults.standard.set(token, forKey: "token")
         UserDefaults.standard.set(id, forKey: "id")
-        VKApi.shared.token = token
-        VKApi.shared.id = id
+        NetworkHelper.shared.token = token
+        NetworkHelper.shared.id = id
         print("token created in session \(sessionId) with info \(info)")
     }
     

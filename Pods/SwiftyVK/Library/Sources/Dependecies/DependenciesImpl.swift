@@ -23,8 +23,8 @@ final class DependenciesImpl: Dependencies {
         
         #if os(iOS)
             let appStateCenter = NotificationCenter.default
-            let activeNotificationName = Notification.Name.UIApplicationDidBecomeActive
-            let inactiveNotificationName = Notification.Name.UIApplicationWillResignActive
+            let activeNotificationName = UIApplication.didBecomeActiveNotification
+            let inactiveNotificationName = UIApplication.willResignActiveNotification
         #elseif os(macOS)
             let appStateCenter = NSWorkspace.shared.notificationCenter
             let activeNotificationName = NSWorkspace.willSleepNotification

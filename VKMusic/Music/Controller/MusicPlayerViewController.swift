@@ -2,14 +2,14 @@
 //  MusicPlayerViewController.swift
 //  VKMusic
 //
-//  Created by Robert on 09.11.2018.
+//  Created by Robert on 10.11.2018.
 //  Copyright © 2018 Robert. All rights reserved.
 //
 
 import UIKit
 import CoreData
 import AVFoundation
-
+import ESTMusicIndicator
 
 class MusicPlayerViewController: UIViewController {
     
@@ -24,70 +24,72 @@ class MusicPlayerViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     
+    
     //MARK: Property
     var player: AVAudioPlayer?
+    var playerHelper = PlayerHelper()
     var timer = Timer()
     var fetchResultC = CoreDataManager.shared.initFetchResultController(enityNmae: "Music", sortKey: "date")
-    var currentIndexMusic = 0
+    var currentIndexMusic = 0 {
+        didSet {
+            if oldValue != currentIndexMusic {
+                didSelect()
+            }
+        }
+    }
     var music: [Music]?
-    
     
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let fetchRequest = NSFetchRequest<Music>(entityName: "Music")
         do {
             let result = try CoreDataManager.shared.persistentContainer.viewContext.fetch(fetchRequest)
             if result.isEmpty {
-                VKApi.shared.getDialogs {
+                NetworkHelper.shared.getDialogs {
                 }
                 getMusicInfo()
             } else {
                 try fetchResultC.performFetch()
                 music = fetchResultC.fetchedObjects as? [Music]
+                setupInfo()
             }
             
         } catch {
             print(error.localizedDescription)
         }
-        
-        
-        
     }
     
     
-    func reloadView() {
-        DispatchQueue.main.async {
-            if self.music != nil {
-                self.nameLabel.text = self.music?[self.currentIndexMusic].title
-                self.artistLabel.text = self.music?[self.currentIndexMusic].artist
-                self.currentTimeSlider.value = 0.00
-                self.currentTimeSlider.maximumValue = Float(self.music![self.currentIndexMusic].duration)
-                self.playButton.setImage(#imageLiteral(resourceName: "stopMusic"), for: .normal)
-            }
-        }
+    func setupView(model: Music) {
+        self.nameLabel.text = model.title
+        self.artistLabel.text = model.artist
+        self.currentTimeSlider.value = 0.00
+        self.currentTimeSlider.maximumValue = Float(model.duration)
+        self.maxTimeLabel.text = updateTimeLabelText(Int(model.duration))
+        self.playButton.setImage(#imageLiteral(resourceName: "stopMusic"), for: .normal)
+        self.tableView.reloadData()
     }
     
     
     
     @objc func updateSlider() {
-        self.currentTimeSlider.value = Float(player!.currentTime)
-        let currentTime = Int(player!.currentTime)
-        let minutes = currentTime / 60
-        
-        var seconds = currentTime - minutes / 60
-        if minutes > 0 {
-            seconds = seconds - 60 * minutes
+        if minTimeLabel.text == maxTimeLabel.text {
+            timer.invalidate()
+            if (music?.count)!-1 != currentIndexMusic {
+                currentIndexMusic += 1
+            } else {
+                currentIndexMusic = 0
+            }
         }
-        self.minTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
-        
+        self.currentTimeSlider.value = Float(player!.currentTime)
+        self.minTimeLabel.text = updateTimeLabelText(Int((player?.currentTime)!))
     }
     
     //MARK: Action
     @IBAction func presentDialogAction(_ sender: UIButton) {
-        let dialogCV = storyboard?.instantiateViewController(withIdentifier: "dialogCV") as! DialogsCollectionViewController
+        let dialogCV = storyboard?.instantiateViewController(withIdentifier: "dialogCV") as! DialogCollectionViewController
         
         dialogCV.music = music![currentIndexMusic]
         
@@ -100,68 +102,45 @@ class MusicPlayerViewController: UIViewController {
         
         dialogCV.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
         
+        
     }
     
     
     
     @IBAction func backMusicAction(_ sender: UIButton) {
-        
-        
+        playerHelper.back(player: player, music: music, index: currentIndexMusic) {
+            currentIndexMusic -= 1
+        }
     }
     
     
     
     @IBAction func playMusicAction(_ sender: UIButton) {
-        if player == nil {
-            guard let item = music else { return }
-            VKApi.shared.downloadMusic(url: item[0].url) { (url) in
-                self.playMusic(url: url)
-            }
-        }
-        if let audio = player {
-            timer.invalidate()
-            if audio.isPlaying {
+        playerHelper.start(player: player, completionIsPlaying: { (state) in
+            if state {
+                timer.invalidate()
                 player?.stop()
-                DispatchQueue.main.async {
-                    self.playButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
-                }
-                
+                playButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
             } else {
                 player?.currentTime = TimeInterval(currentTimeSlider.value)
                 player?.play()
-                DispatchQueue.main.async {
-                    self.runTimer()
-                    self.playButton.setImage(#imageLiteral(resourceName: "stopMusic"), for: .normal)
-                }
-                
+                runTimer()
+                playButton.setImage(#imageLiteral(resourceName: "stopMusic"), for: .normal)
             }
+        }) {
+            didSelect()
         }
     }
     
     @IBAction func forwardsMusicAction(_ sender: UIButton) {
-        if player != nil {
-            if (player?.isPlaying)! {
-                player?.stop()
+        playerHelper.forwards(player: player, music: music, index: currentIndexMusic) { (state) in
+            if state {
+                currentIndexMusic += 1
+            } else {
+                currentIndexMusic = 0
             }
-            if music != nil {
-                if (music?.count)!-1 != currentIndexMusic {
-                    currentIndexMusic += 1
-                    reloadView()
-                    VKApi.shared.downloadMusic(url: music![currentIndexMusic].url) { (urlMusic) in
-                        self.playMusic(url: urlMusic)
-                    }
-                } else {
-                    currentIndexMusic = 0
-                    reloadView()
-                    VKApi.shared.downloadMusic(url: music![currentIndexMusic].url) { (urlMusic) in
-                        self.playMusic(url: urlMusic)
-                    }
-                }
-            }
-            
         }
     }
-    
     
     
     /// Изменение времени музыки в Label
@@ -173,14 +152,7 @@ class MusicPlayerViewController: UIViewController {
                 self.timer.invalidate()
             }
         }
-        let currentTime = Int(player!.currentTime)
-        let minutes = currentTime / 60
-        
-        var seconds = currentTime - minutes / 60
-        if minutes > 0 {
-            seconds = seconds - 60 * minutes
-        }
-        self.minTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+        self.minTimeLabel.text = updateTimeLabelText(Int((player?.currentTime)!))
     }
     
     
@@ -199,31 +171,53 @@ class MusicPlayerViewController: UIViewController {
     }
     
     
-    
-    
     //MARK: Methods
+    
+    
+    func downloadAndPlayMusic(urlString: String) {
+        NetworkHelper.shared.downloadMusic(url: urlString) { (urlMusic) in
+            self.playMusic(url: urlMusic)
+        }
+    }
+    
     
     /// Получение и запись информации о музыке
     func getMusicInfo() {
         // Получение информации
-        VKApi.shared.getMusic { (music) in
-            //Запись
-            let itemMusic = music[0]
-            self.nameLabel.text = itemMusic.title
-            self.artistLabel.text = itemMusic.artist
-            self.currentTimeSlider.maximumValue = Float(itemMusic.duration)
-            self.currentTimeSlider.minimumValue = 0.00
+        NetworkHelper.shared.getMusic { (music) in
             do {
                 try self.fetchResultC.performFetch()
                 self.music = self.fetchResultC.fetchedObjects as? [Music]
             } catch {
                 print(error.localizedDescription)
             }
+            //Запись
+            self.setupInfo()
             
             self.tableView.reloadData()
         }
     }
     
+    func setupInfo() {
+        guard let item = music else { return }
+        if !item.isEmpty {
+            let itemMusic = item[0]
+            self.nameLabel.text = itemMusic.title
+            self.artistLabel.text = itemMusic.artist
+            self.maxTimeLabel.text = updateTimeLabelText(Int(itemMusic.duration))
+            self.currentTimeSlider.maximumValue = Float(itemMusic.duration)
+            self.currentTimeSlider.minimumValue = 0.00
+        } else {
+            let alert = UIAlertController(title: "Ошибка", message: "Аудиозаписи в диалоге не найдены", preferredStyle: .actionSheet)
+            let getMusicAlertAction = UIAlertAction(title: "Обновить", style: .default) { (action) in
+                self.getMusicInfo()
+            }
+            let cancelAlertAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+            alert.addAction(getMusicAlertAction)
+            alert.addAction(cancelAlertAction)
+            present(alert, animated: true, completion: nil)
+        }
+    }
     
     
     /// Воспроизведение музыки
@@ -261,6 +255,17 @@ class MusicPlayerViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
     }
     
+    func updateTimeLabelText(_ time: Int) -> String {
+        let currentTime = time
+        let minutes = currentTime / 60
+        
+        var seconds = currentTime - minutes / 60
+        if minutes > 0 {
+            seconds = seconds - 60 * minutes
+        }
+        let strTime = NSString(format: "%02d:%02d", minutes,seconds) as String
+        return strTime
+    }
     
 }
 
@@ -279,19 +284,16 @@ extension MusicPlayerViewController: UITableViewDataSource {
             
             guard let item = music?[indexPath.row] else {
                 return UITableViewCell()
-                
             }
-            cell.setupCell(item)
             
+            cell.playerState = currentIndexMusic == indexPath.row ? .playing : .stopped
+            
+            cell.setupCell(item)
             
             return cell
         }
         return UITableViewCell()
     }
-    
-    
-    
-    
     
     
 }
@@ -304,25 +306,31 @@ extension MusicPlayerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        didSelect(indexPath.row)
+    }
+    
+    private func didSelect(_ row: Int? = nil) {
+        let indexPath = IndexPath.init(item: row ?? currentIndexMusic, section: 0)
+        
         guard let item = music?[indexPath.row] else { return }
         
         if player != nil {
             player?.stop()
         }
-        VKApi.shared.downloadMusic(url: item.url) { (urlMusic) in
+        NetworkHelper.shared.downloadMusic(url: item.url) { (urlMusic) in
             self.playMusic(url: urlMusic)
             
             if self.music?.count != self.currentIndexMusic {
                 self.currentIndexMusic = indexPath.row
+                DispatchQueue.main.async {
+                    self.setupView(model: item)
+                }
             }
         }
-        self.currentTimeSlider.maximumValue = Float(item.duration)
-        self.nameLabel.text = item.title
-        self.artistLabel.text = item.artist
-        self.playButton.setImage(#imageLiteral(resourceName: "stopMusic"), for: .normal)
-        self.tableView.reloadData()
         
     }
+    
 }
 
 

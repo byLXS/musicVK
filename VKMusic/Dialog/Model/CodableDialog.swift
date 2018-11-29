@@ -181,10 +181,10 @@ struct LastMessage: Codable {
     let peerID: Int
     let text: String
     let conversationMessageID: Int
-    let fwdMessages: [JSONAny]
+    let fwdMessages: [JSONAny]?
     let important: Bool
     let randomID: Int
-    let attachments: [LastMessageAttachment]
+    let attachments: [LastMessageAttachment]?
     let isHidden: Bool
     let keyboard: Keyboard?
     let updateTime: Int?
@@ -217,15 +217,17 @@ struct LastMessageAttachment: Codable {
 }
 
 struct Audio: Codable {
-    let id, ownerID: Int
-    let artist, title: String
-    let duration, date: Int
-    let url: String
-    let lyricsID, genreID: Int
-    let isHq, isExplicit: Bool
+    let id, ownerID: Int?
+    let artist, title: String?
+    let duration, date: Int?
+    let url: String?
+    let trackCode: String?
+    let lyricsID, genreID: Int?
+    let isHq, isExplicit: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id
+        case trackCode = "track_code"
         case ownerID = "owner_id"
         case artist, title, duration, date, url
         case lyricsID = "lyrics_id"

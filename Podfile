@@ -6,4 +6,5 @@ inhibit_all_warnings!
 
 target 'VKMusic' do
    pod 'SwiftyVK'
+   pod 'ESTMusicIndicator'
 end

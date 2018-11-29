@@ -1,16 +1,20 @@
 PODS:
+  - ESTMusicIndicator (0.2.0)
   - SwiftyVK (3.1.7)
 
 DEPENDENCIES:
+  - ESTMusicIndicator
   - SwiftyVK
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ESTMusicIndicator
     - SwiftyVK
 
 SPEC CHECKSUMS:
+  ESTMusicIndicator: 80a123b51a7de3caa44dc91829b9619185dad0f6
   SwiftyVK: 96f4b666df2b0044b908abc1e9ac6210b72fece2
 
-PODFILE CHECKSUM: d0815984a2e098529db5e9e4db4c7de94fcb2fac
+PODFILE CHECKSUM: a68c1a49546db64fd3bbc846524254d7f9b80c16
 
 COCOAPODS: 1.5.2
