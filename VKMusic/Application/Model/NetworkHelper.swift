@@ -52,7 +52,7 @@ class NetworkHelper  {
     func getDialogs(completion: @escaping () -> Void) {
         guard let accessToken = token else { return }
         
-        let urlString = "https://api.vk.com/method/messages.getConversations?extended=1,count=100&v=5.87&access_token=\(accessToken)"
+        let urlString = "https://api.vk.com/method/messages.getConversations?extended=1,count=200&v=5.87&access_token=\(accessToken)"
         
        
         

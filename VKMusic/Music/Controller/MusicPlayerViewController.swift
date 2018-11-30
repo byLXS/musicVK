@@ -116,6 +116,7 @@ class MusicPlayerViewController: UIViewController {
     
     
     @IBAction func playMusicAction(_ sender: UIButton) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: IndexPath(row: currentIndexMusic, section: 0)) as? MusicTableViewCell
         playerHelper.start(player: player, completionIsPlaying: { (state) in
             if state {
                 timer.invalidate()
@@ -292,6 +293,7 @@ extension MusicPlayerViewController: UITableViewDataSource {
             
             return cell
         }
+        
         return UITableViewCell()
     }
     
@@ -307,7 +309,10 @@ extension MusicPlayerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        didSelect(indexPath.row)
+        if self.music?.count != self.currentIndexMusic {
+            self.currentIndexMusic = indexPath.row
+        }
+        
     }
     
     private func didSelect(_ row: Int? = nil) {
@@ -318,6 +323,7 @@ extension MusicPlayerViewController: UITableViewDelegate {
         if player != nil {
             player?.stop()
         }
+        
         NetworkHelper.shared.downloadMusic(url: item.url) { (urlMusic) in
             self.playMusic(url: urlMusic)
             
