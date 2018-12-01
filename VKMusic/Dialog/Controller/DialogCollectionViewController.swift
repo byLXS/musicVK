@@ -89,7 +89,7 @@ class DialogCollectionViewController: UIViewController {
                     self.view.frame = CGRect(x: 0, y: p + 200, width: self.view.frame.width, height: self.view.frame.height)
                     self.removeFromParent()
                     self.view.removeFromSuperview()
-                    self.viewDidAppear(true)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeBlurView"), object: nil)
                 } else {
                     self.view.frame = CGRect(x: 0, y: 100, width: self.view.frame.width, height: self.view.frame.height)
                 }
@@ -109,6 +109,7 @@ class DialogCollectionViewController: UIViewController {
             self.view.frame = CGRect(x: 0, y:  UIScreen.main.bounds.height - 150 + 200, width: self.view.frame.width, height: self.view.frame.height)
             self.removeFromParent()
             self.view.removeFromSuperview()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeBlurView"), object: nil)
         }
         sendMessageView.inputMessage.text = nil
     }
@@ -178,7 +179,6 @@ extension DialogCollectionViewController: UICollectionViewDelegate {
             }
             
         }
-        print(ids)
     }
     
 }

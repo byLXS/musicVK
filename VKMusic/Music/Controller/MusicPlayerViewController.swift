@@ -23,6 +23,8 @@ class MusicPlayerViewController: UIViewController {
     @IBOutlet weak var albumImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+//    let blurEffect = UIBlurEffect(style: .dark)
+    let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     
     //MARK: Property
@@ -59,6 +61,9 @@ class MusicPlayerViewController: UIViewController {
         } catch {
             print(error.localizedDescription)
         }
+        
+        blurEffectView.frame = self.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     
@@ -73,6 +78,10 @@ class MusicPlayerViewController: UIViewController {
     }
     
     
+    @objc func removeBlurView() {
+        NotificationCenter.default.removeObserver(self)
+        blurEffectView.removeFromSuperview()
+    }
     
     @objc func updateSlider() {
         if minTimeLabel.text == maxTimeLabel.text {
@@ -92,7 +101,9 @@ class MusicPlayerViewController: UIViewController {
         let dialogCV = storyboard?.instantiateViewController(withIdentifier: "dialogCV") as! DialogCollectionViewController
         
         dialogCV.music = music![currentIndexMusic]
-        
+        self.view.addSubview(blurEffectView)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.removeBlurView), name: NSNotification.Name(rawValue: "removeBlurView"), object: nil)
+
         self.addChild(dialogCV)
         self.view.addSubview(dialogCV.view)
         dialogCV.didMove(toParent: self)
@@ -101,8 +112,6 @@ class MusicPlayerViewController: UIViewController {
         let width = self.view.frame.width
         
         dialogCV.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        
-        
     }
     
     
@@ -116,7 +125,6 @@ class MusicPlayerViewController: UIViewController {
     
     
     @IBAction func playMusicAction(_ sender: UIButton) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: IndexPath(row: currentIndexMusic, section: 0)) as? MusicTableViewCell
         playerHelper.start(player: player, completionIsPlaying: { (state) in
             if state {
                 timer.invalidate()
