@@ -4,4 +4,4 @@
 * Проигрывание музыки и возможность рассылки
 
 
-![2018-12-01 19 18 03](https://user-images.githubusercontent.com/45289648/49330551-59353880-f5a1-11e8-84d8-535d9909c671.png)![2018-12-01 19 36 14](https://user-images.githubusercontent.com/45289648/49330582-ad401d00-f5a1-11e8-912a-718e955b3d88.png)
+![2018-12-01 19 18 03](https://user-images.githubusercontent.com/45289648/49330551-59353880-f5a1-11e8-84d8-535d9909c671.png)!
